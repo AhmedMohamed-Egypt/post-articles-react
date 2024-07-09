@@ -1,17 +1,28 @@
-import { act, createContext, useContext, useReducer, useState } from "react";
+import {  createContext, useContext, useReducer, useState } from "react";
 //Create Context
 const PostContext = createContext();
 //Using Reducer
 
 const initialState = {
-  posts: [{title:"title1",body:"lorem 15",id:1},{title:"title2",body:"lorem 16",id:2}],
+  postList: [{title:"title1",body:"lorem 15",id:1},{title:"title2",body:"lorem 16",id:2}],
+  errorPost:false,
+  savePostsList:[]
 };
 
 function reducer(snstate, action) {
-  switch (action.paylod) {
-    case "": {
-      return { ...snstate };
+  switch (action.type) {
+    case "onAddPost": {
+      
+      const addedPost = action.payload
+      return { ...snstate,postList:[...snstate.postList,addedPost]};
     }
+    case "savePost":{
+      const addedItem = [...snstate.savePostsList,action.payload]
+      const removeItem  = snstate.savePostsList.filter((item)=>item.title!==action.payload.title)
+      const addedList = !snstate.savePostsList.map((item)=>item.title).includes(action.payload.title)?addedItem:removeItem
+      return {...snstate,savePostsList:addedList}
+    }
+
 
     default: {
       return "Action not known";
@@ -21,9 +32,17 @@ function reducer(snstate, action) {
 //Create Provider
 
 function PostProvider({ children }) {
-  const [{posts}, dispatch ] = useReducer(reducer, initialState);
+  const [{postList,errorPost,savePostsList}, dispatch ] = useReducer(reducer, initialState);
 
-  return <PostContext.Provider value={posts}>{children}</PostContext.Provider>;
+  function addPost(postObject){
+    
+    dispatch({type:"onAddPost",payload:postObject})
+  }
+
+  function savePosts(saveObject){
+    dispatch({type:'savePost',payload:saveObject})
+  }
+  return <PostContext.Provider value={{postList,addPost,errorPost,savePosts,savePostsList}}>{children}</PostContext.Provider>;
 }
 
 //Consume

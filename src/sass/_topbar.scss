@@ -1,6 +1,15 @@
 .mr-2{
     margin-right: 20px;
 }
+button{
+    &:active,&:focus,&:hover{
+        border: 1px solid transparent !important;
+    }
+    .bi-heart.colored{
+        color: rgb(216, 29, 29);
+    }
+    cursor: pointer;
+}
 .topBar{
     &__logo{
         img{

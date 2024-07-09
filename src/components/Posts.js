@@ -2,11 +2,12 @@ import { PostConsumer } from "../Context/PostContext"
 import CardItem from "./CardItem"
 
 function Posts() {
-    const posts = PostConsumer()
+    const {postList} = PostConsumer()
+   
    
     return (
-       <div className="d-flex align-items-center">
-         {posts.map((item,index)=><CardItem className={`${index!==(posts.length-1)?'mr-2':''}`} key={item.id} title={item.title} body={item.body}/>)}
+       <div className="d-flex align-items-center flex-wrap">
+         {postList.map((item,index)=><CardItem index={index} className={`${index!==(postList.length-1)?'mr-2':''}`} key={item.id} title={item.title} body={item.body}/>)}
        </div>
     )
 }

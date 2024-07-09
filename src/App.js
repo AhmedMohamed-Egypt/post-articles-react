@@ -1,3 +1,4 @@
+import Modal from './components/Modal';
 import AddPost from './components/AddPost';
 import Posts from './components/Posts';
 import TopBar from './components/TopBar';
@@ -14,6 +15,7 @@ function App() {
       <Posts/>
       </Container>
       </PostProvider>
+      
    
      
     </div>
