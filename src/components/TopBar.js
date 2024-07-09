@@ -6,10 +6,11 @@ function TopBar() {
  const {savePostsList} = PostConsumer()
  const [show,setShow] = useState(false)
  const showSave = savePostsList.length >0
- const savedLists = savePostsList.map((item)=><div key={item.id}>
+ const savedLists = savePostsList.sort().map((item)=><div className="item-modal" key={item.id}>
  <p>{item.title}</p>
  <p>{item.body}</p>
- </div>)
+ </div>
+ )
   return (
     <div className="d-flex align-items-center justify-content-between mt-3 topBar">
       <div className="topBar__logo">
@@ -33,8 +34,11 @@ function TopBar() {
         {showSave&&  <div className="mt-2 d-flex justify-content-end">
         <button onClick={()=>setShow(true)} className="btn btn-info">Saved Posts</button>
         </div>}
-        {show&&<Modal>
+        {show&&<Modal  onClick={(e)=>{setShow(false)}}>
+         <div className="modal_content" onClick={(e)=>{e.stopPropagation()}}>
+          <button className="btnclose btn" onClick={()=>setShow(false)}><i className="bi bi-x "></i></button>
          {savedLists}
+         </div>
         </Modal>}
       
       </div>

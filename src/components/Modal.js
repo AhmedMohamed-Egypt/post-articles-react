@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
-function Modal({ children }) {
+function Modal({onClick, children }) {
   const ModalBody = () => {
-    return <div id="modalBody">
+    return <div id="modalBody" onClick={onClick}>
         {children}
     </div>
   };
