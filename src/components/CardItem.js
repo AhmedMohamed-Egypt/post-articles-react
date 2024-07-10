@@ -2,11 +2,12 @@ import { useState } from "react";
 import { PostConsumer } from "../Context/PostContext";
 
 function CardItem({ title, body, className, index }) {
-  const {postList ,savePosts,deleteItem} = PostConsumer();
+  const {postList ,savePosts,deleteItem,searchedPosts} = PostConsumer();
+  const mainPostList = searchedPosts.length>0?searchedPosts:postList
   const [active, setActive] = useState("");
   const handleActive = (indexItem) => {
     setActive((active) => !active);
-    const item = postList[indexItem]
+    const item = mainPostList[indexItem]
     savePosts(item)
 
   };

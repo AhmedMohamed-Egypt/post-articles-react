@@ -35,17 +35,20 @@ function reducer(snstate, action) {
 
     case "delete": {
       const itemIndex = action.payload;
-
+    
       const filteredPostList = snstate.postList.filter(
         (item, index) => index !== itemIndex && item
       );
       const filteredSavePostList = snstate.savePostsList.filter(
         (item) => item.title !== snstate.postList[itemIndex].title
       ).sort()
+      const filteredSearchedPosts = snstate.searchedPosts.filter((item)=>item.title!==snstate.searchedPosts[itemIndex].title)
+      
       return {
         ...snstate,
         postList: filteredPostList,
         savePostsList: filteredSavePostList,
+        searchedPosts:filteredSearchedPosts
       };
     }
     case "search":{
