@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PostConsumer } from "../Context/PostContext";
 
 function CardItem({ title, body, className, index }) {
-  const {postList ,savePosts} = PostConsumer();
+  const {postList ,savePosts,deleteItem} = PostConsumer();
   const [active, setActive] = useState("");
   const handleActive = (indexItem) => {
     setActive((active) => !active);
@@ -22,6 +22,7 @@ function CardItem({ title, body, className, index }) {
           <i className={`bi bi-heart ${active ? "colored" : ""}`}></i>
         </button>
       </div>
+      <button className="btnclose btn" onClick={()=>deleteItem(index)}><i className="bi bi-x "></i></button>
     </div>
   );
 }
