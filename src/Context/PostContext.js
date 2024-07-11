@@ -34,21 +34,25 @@ function reducer(snstate, action) {
     }
 
     case "delete": {
-      const itemIndex = action.payload;
+      const itemId = action.payload;
     
       const filteredPostList = snstate.postList.filter(
-        (item, index) => index !== itemIndex && item
+        (item) => itemId !== item.id
       );
+      
       const filteredSavePostList = snstate.savePostsList.filter(
-        (item) => item.title !== snstate.postList[itemIndex].title
+        (item) => item.id !== itemId
       ).sort()
-      const filteredSearchedPosts = snstate.searchedPosts.filter((item)=>item.title!==snstate.searchedPosts[itemIndex].title)
+      
+     const filteredSearchPosts = snstate.searchedPosts.filter((item)=>item.id !== itemId)
+     
       
       return {
         ...snstate,
         postList: filteredPostList,
-        savePostsList: filteredSavePostList,
-        searchedPosts:filteredSearchedPosts
+       savePostsList: filteredSavePostList,
+       searchedPosts:filteredSearchPosts
+       
       };
     }
     case "search":{
@@ -60,13 +64,11 @@ function reducer(snstate, action) {
           item.body.trim().split(" ").join("").toLowerCase().indexOf(searchItem.split(" ").join("").toLowerCase())>-1
         )
       })
-
-      if(searchedPostList.length !== snstate.postList.length){
+      if(searchItem.length >0){
         return {...snstate,searchedPosts:searchedPostList}
+      }else {
+        return {...snstate,searchedPosts:[]}
       }
-      return {...snstate,searchedPosts:[]}
-      
-      
     }
 
     default: {
