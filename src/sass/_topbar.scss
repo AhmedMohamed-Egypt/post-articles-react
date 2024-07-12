@@ -17,3 +17,11 @@ button{
         }
     }
 }
+.App{
+    @media only screen and (max-width: 600px) {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+      }
+}
