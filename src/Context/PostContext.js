@@ -21,13 +21,14 @@ function reducer(snstate, action) {
       return { ...snstate, postList: [...snstate.postList, addedPost] };
     }
     case "savePost": {
+      
       const addedItem = [...snstate.savePostsList, action.payload];
       const removeItem = snstate.savePostsList.filter(
-        (item) => item.title !== action.payload.title
+        (item) => item.id !== action.payload.id
       );
       const addedList = !snstate.savePostsList
-        .map((item) => item.title)
-        .includes(action.payload.title)
+        .map((item) => item.id)
+        .includes(action.payload.id)
         ? addedItem
         : removeItem;
       return { ...snstate, savePostsList: addedList };
